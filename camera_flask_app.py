@@ -20,8 +20,8 @@ net = cv2.dnn.readNetFromCaffe('./saved_model/deploy.prototxt.txt', './saved_mod
 #instatiate flask app  
 app = Flask(__name__, template_folder='./templates')
 
-
-camera = cv2.VideoCapture(0)
+# camera = cv2.VideoCapture(2) # sundaya
+camera = cv2.VideoCapture(0) # default camera
 
 # Load a sample picture and learn how to recognize it.
 alif_image = face_recognition.load_image_file("alif.jpg")
@@ -41,11 +41,12 @@ face_encodings = []
 face_names = []
 process_this_frame = True
 
-
 def detect_face(frame):
     # Resize frame of video to 1/4 size for faster processing
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
-    rgb_small_frame = small_frame[:, :, ::-1]  # Convert BGR to RGB
+    # Convert BGR to RGB
+    # rgb_small_frame = small_frame[:, :, ::-1] # windows
+    rgb_small_frame = np.ascontiguousarray(small_frame[:, :, ::-1]) # linux
 
     # Find all the faces and face encodings
     face_locations = face_recognition.face_locations(rgb_small_frame)
@@ -73,8 +74,6 @@ def detect_face(frame):
         cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-
-
     return frame
 
 # generate frame by frame from camera
@@ -83,8 +82,8 @@ def gen_frames():
     while True:
         success, frame = camera.read()
         if not success:
-            break               
-        frame= detect_face(frame)   
+            break
+        frame= detect_face(frame) 
         if capture:
             capture = 0
             now = datetime.datetime.now()
@@ -101,12 +100,10 @@ def gen_frames():
         else:
             pass
 
-
 @app.route('/')
 def index():
     return render_template('index.html')
-    
-    
+
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
@@ -124,7 +121,7 @@ def tasks():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    
+    app.run()
+
 camera.release()
-cv2.destroyAllWindows()     
+cv2.destroyAllWindows()
