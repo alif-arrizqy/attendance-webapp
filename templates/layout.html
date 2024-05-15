@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- START: Head-->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Face System</title>
+    <link rel="shortcut icon" href="{{url_for('static', filename='images/immigration.png')}} " />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- START: Template CSS-->
+    <link rel="stylesheet" href="{{url_for('static', filename='vendors/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='vendors/jquery-ui/jquery-ui.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='vendors/jquery-ui/jquery-ui.theme.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='vendors/simple-line-icons/css/simple-line-icons.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='vendors/datatable/datatables.min.css')}}">
+    <!-- END Template CSS-->
+
+    <!-- START: Custom CSS-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+</head>
+<!-- END Head-->
+
+<!-- START: Body-->
+
+<body id="main-container" class="default semi-dark horizontal-menu">
+
+    <!-- START: Header-->
+    {% block header %}
+    <!-- START: Pre Loader-->
+    <div class="se-pre-con">
+        <div class="loader"></div>
+    </div>
+    <!-- END: Pre Loader-->
+
+    <div id="header-fix" class="header fixed-top">
+        <div class="site-width">
+            <nav class="navbar navbar-expand-ls p-0">
+                <div class="navbar-header  h-100 mb-0 align-self-center logo-bar text-left">
+                    <a href="#" class="horizontal-logo text-left">
+                        <!-- <img src="{{url_for('static', filename='images/immigration.png')}}"> -->
+                        <span class="h3 font-weight-bold align-self-center mb-0 ml-auto">Absensi</span>
+                    </a>
+                </div>
+                <div class="navbar-header h4 mb-0 text-center h-100 collapse-menu-bar">
+                    <a href="#" class="sidebarCollapse" id="collapse"><i class="icon-menu"></i></a>
+                </div>
+                <div class="navbar-right ml-auto h-100">
+                    <!-- right navbar -->
+                </div>
+            </nav>
+        </div>
+    </div>
+    {%endblock%}
+    <!-- END: Header-->
+
+    <!-- START: Main Menu-->
+    {% block menu %}
+    <div class="sidebar fixed-top">
+        <div class="site-width">
+            <!-- START: Menu-->
+            <ul id="side-menu" class="sidebar-menu">
+                <li class="dropdown">
+                    <a href="#"><i class="iconify" data-icon="material-symbols:home" data-width="30" data-height="18"></i>Home</a>
+                    <ul>
+                        <li>
+                            <a href="/"><i class="iconify" data-icon="material-symbols:ar-on-you-outline" data-width="30" data-height="18"></i>Absensi</a>
+                        </li>
+                        <li>
+                            <a href="/registrasi"><i class="iconify" data-icon="material-symbols:add-reaction-outline" data-width="30" data-height="18"></i>Registrasi</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#"><i class="iconify" data-icon="material-symbols:supervised-user-circle" data-width="30"
+                            data-height="18"></i> Daftar Kehadiran</a>
+                </li>
+            </ul>
+            <!-- END: Menu-->
+            <!-- <ol class="breadcrumb bg-transparent align-self-center m-0 p-0 ml-auto">
+                <h4 class="text-white">
+                    <div id="datetime-bar"></div>
+                </h4>
+            </ol> -->
+        </div>
+    </div>
+    {%endblock%}
+
+    <!-- END: Main Menu-->
+
+    <!-- START: Content-->
+    {% block content %}
+    {% block main_content %}
+
+    {% endblock %}
+    {% endblock %}
+    <!-- END: Content-->
+
+    <!-- START: Footer -->
+    {% block footer%}
+    <!-- <footer class="site-footer" style="margin-top: 100px;">
+        ©
+        <script>
+            document.write(new Date().getFullYear());
+        </script> attendance face system </div>
+    </footer> -->
+
+    <!-- START: Back to top-->
+    <a href="#" class="scrollup text-center">
+        <i class="icon-arrow-up"></i>
+    </a>
+    <!-- END: Back to top-->
+    {% endblock %}
+    <!-- END: Footer -->
+
+    {% block js %}
+    <!-- START: Template JS-->
+    <script src="{{url_for('static', filename='vendors/jquery/jquery-3.3.1.min.js')}}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='vendors/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename='vendors/slimscroll/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{url_for('static', filename='vendors/datatable/datatables.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/data-table.js')}}"></script>
+    <!-- END: Template JS-->
+
+    <!-- START: APP JS-->
+    <script src="{{url_for('static', filename='js/app.js')}}"></script>
+    <!-- END: APP JS-->
+
+    <!-- Jam -->
+    <script>
+        function getWaktu() {
+            let currentDate = new Date()
+            let hour = currentDate.getHours()
+            if (hour < 10) {
+                hour = `0${hour}`
+            }
+            let minute = currentDate.getMinutes()
+            if (minute < 10) {
+                minute = `0${minute}`
+            }
+            let second = currentDate.getSeconds()
+            if (second < 10) {
+                second = `0${second}`
+            }
+            let dateTime = `${hour}:${minute}:${second}`
+            document.getElementById('datetime-bar').innerHTML = dateTime
+            //console.log(dateTime)
+        }
+        let refreshWaktu = setInterval(() => {
+            getWaktu()
+        }, 1000)
+    </script>
+
+    <!-- Battery Icons -->
+    <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+    {% endblock %}
+</body>
+<!-- END: Body-->
+
+</html>
