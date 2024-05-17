@@ -1,5 +1,5 @@
 env/
-shots/*
+shots/*.jpg
 __pycache__/
 .env
-register_user/*
+register_user/*.jpg
