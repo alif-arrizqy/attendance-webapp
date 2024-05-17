@@ -2,4 +2,4 @@ env/
 shots/*
 __pycache__/
 .env
-register_user/
+register_user/*
