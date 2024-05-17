@@ -22,8 +22,7 @@ net = cv2.dnn.readNetFromCaffe('./saved_model/deploy.prototxt.txt', './saved_mod
 #instatiate flask app  
 app = Flask(__name__, template_folder='./templates')
 
-# camera = cv2.VideoCapture(2) # sundaya
-camera = cv2.VideoCapture(0) # default camera
+camera = cv2.VideoCapture(0)
 
 # Load a sample picture and learn how to recognize it.
 alif_image = face_recognition.load_image_file("biden.jpg")
@@ -38,8 +37,7 @@ known_face_encodings = [
     obama_face_encoding
 ]
 known_face_names = [
-    # "ALIF AA",
-    "biden",
+    "ALIF AA",
     "obama"
 ]
 
@@ -169,7 +167,7 @@ def registrasi():
             capture = 1
             npm_mahasiswa = request.form.get('npm')
         # return render_template('home.html')
-        return redirect(url_for('/'))
+        return redirect(url_for('views.registrasi'))
     elif request.method=='GET':
         return render_template('registrasi.html')
 
