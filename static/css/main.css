@@ -1123,8 +1123,14 @@ body::-webkit-scrollbar-thumb {
     padding: 15px;
 }
 
-.card .card-header-melawai {
+.card .card-header-green {
     background-color: #17aa5e;
+    border-color: var(--bordercolor);
+    padding: 15px;
+}
+
+.card .card-header-blue {
+    background-color: #1739aa;
     border-color: var(--bordercolor);
     padding: 15px;
 }
