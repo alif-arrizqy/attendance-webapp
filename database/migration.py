@@ -45,7 +45,7 @@ def create_table():
             # table users
             db.create_table(
                 table_name="users",
-                columns='id SERIAL PRIMARY KEY, npm VARCHAR, nama_lengkap VARCHAR, kelas VARCHAR, foto VARCHAR, "createdAt" TIMESTAMP DEFAULT NOW()',
+                columns='id SERIAL PRIMARY KEY, npm VARCHAR, nama_lengkap VARCHAR, foto VARCHAR, "createdAt" TIMESTAMP DEFAULT NOW()',
             )
         
         if args.table == 'attendance':

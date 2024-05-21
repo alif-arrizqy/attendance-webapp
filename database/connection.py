@@ -55,11 +55,16 @@ class Database:
         self.cursor.execute(query)
 
     def insert(self, table_name, columns, values):
-        query = f"INSERT INTO {table_name} ({columns}) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        query = f"INSERT INTO {table_name} ({columns}) VALUES (%s, %s, %s)"
         self.cursor.execute(query, values)
 
-    def select(self, table_name, columns, condition):
+    def find(self, table_name, columns, condition):
         query = f"SELECT {columns} FROM {table_name} WHERE {condition}"
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+    
+    def select(self, table_name):
+        query = f"SELECT * FROM {table_name}"
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
@@ -71,6 +76,6 @@ class Database:
         query = f"DELETE FROM {table_name} WHERE {condition}"
         self.cursor.execute(query)
 
-    def __del__(self):
-        self.cursor.close()
-        self.connection.close()
+    # def __del__(self):
+    #     self.cursor.close()
+    #     self.connection.close()
